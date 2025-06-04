@@ -1,27 +1,27 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <meta charset="UTF-8" />
+    <title>Stitch Design</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
     <link
       rel="stylesheet"
       as="style"
       onload="this.rel='stylesheet'"
-      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800"
+      href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;700;800"
     />
-
-    <title>Stitch Design</title>
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
-
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   </head>
   <body>
     <div
       class="relative flex size-full min-h-screen flex-col bg-white justify-between group/design-root overflow-x-hidden"
-      style='--radio-dot-svg: url(&apos;data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27rgb(22,20,18)%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3ccircle cx=%278%27 cy=%278%27 r=%273%27/%3e%3c/svg%3e&apos;); font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'
+      style='--radio-dot-svg: url("data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27rgb(22,20,18)%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3ccircle cx=%278%27 cy=%278%27 r=%273%27/%3e%3c/svg%3e"); font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'
     >
       <div>
         <div class="flex items-center bg-white p-4 pb-2 justify-between">
           <a href="gallery.html">
-            <div class="text-[#161412] flex size-12 shrink-0 items-center" data-icon="X" data-size="24px" data-weight="regular">
+            <div class="text-[#161412] flex size-12 shrink-0 items-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
                 <path
                   d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"
@@ -38,55 +38,58 @@
             <input
               id="imageTitle"
               placeholder="Enter title"
-              class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#161412] focus:outline-0 focus:ring-0 border-none bg-[#f4f2f1] focus:border-none h-14 placeholder:text-[#81766a] p-4 text-base font-normal leading-normal"
-              value=""
+              class="form-input w-full rounded-xl bg-[#f4f2f1] text-[#161412] h-14 p-4 text-base placeholder:text-[#81766a] focus:outline-0 focus:ring-0"
             />
           </label>
         </div>
         <div class="flex px-4 py-3 justify-center">
           <button
-            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#f4f2f1] text-[#161412] text-sm font-bold leading-normal tracking-[0.015em]"
+            id="selectFileButton"
+            class="flex min-w-[84px] max-w-[480px] items-center justify-center rounded-full h-10 px-4 bg-[#f4f2f1] text-[#161412] text-sm font-bold"
           >
-            <span class="truncate">Upload Photo</span>
+            <span class="truncate">Select Photo File</span>
           </button>
+        </div>
+        <div class="flex px-4 justify-center pb-3">
+          <span id="fileSelectedStatus" class="text-sm text-[#81766a]"></span>
         </div>
         <div class="flex flex-col gap-3 p-4">
           <label class="flex items-center gap-4 rounded-xl border border-solid border-[#e3e1dd] p-[15px]">
             <input
               type="radio"
-              class="h-5 w-5 border-2 border-[#e3e1dd] bg-transparent text-transparent checked:border-[#161412] checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0 focus:ring-offset-0 checked:focus:border-[#161412]"
-              name="1701aa7d-42de-4fbb-852d-ab0c999ab02b"
+              class="h-5 w-5 border-2 border-[#e3e1dd] bg-transparent checked:border-[#161412] checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0"
+              name="catSelection"
               value="덕배"
-              checked=""
+              checked
             />
-            <div class="flex grow flex-col"><p class="text-[#161412] text-sm font-medium leading-normal">덕배</p></div>
+            <div class="flex grow flex-col"><p class="text-[#161412] text-sm font-medium">덕배</p></div>
           </label>
           <label class="flex items-center gap-4 rounded-xl border border-solid border-[#e3e1dd] p-[15px]">
             <input
               type="radio"
-              class="h-5 w-5 border-2 border-[#e3e1dd] bg-transparent text-transparent checked:border-[#161412] checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0 focus:ring-offset-0 checked:focus:border-[#161412]"
-              name="1701aa7d-42de-4fbb-852d-ab0c999ab02b"
+              class="h-5 w-5 border-2 border-[#e3e1dd] bg-transparent checked:border-[#161412] checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0"
+              name="catSelection"
               value="초코"
             />
-            <div class="flex grow flex-col"><p class="text-[#161412] text-sm font-medium leading-normal">초코</p></div>
+            <div class="flex grow flex-col"><p class="text-[#161412] text-sm font-medium">초코</p></div>
           </label>
           <label class="flex items-center gap-4 rounded-xl border border-solid border-[#e3e1dd] p-[15px]">
             <input
               type="radio"
-              class="h-5 w-5 border-2 border-[#e3e1dd] bg-transparent text-transparent checked:border-[#161412] checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0 focus:ring-offset-0 checked:focus:border-[#161412]"
-              name="1701aa7d-42de-4fbb-852d-ab0c999ab02b"
+              class="h-5 w-5 border-2 border-[#e3e1dd] bg-transparent checked:border-[#161412] checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0"
+              name="catSelection"
               value="우유"
             />
-            <div class="flex grow flex-col"><p class="text-[#161412] text-sm font-medium leading-normal">우유</p></div>
+            <div class="flex grow flex-col"><p class="text-[#161412] text-sm font-medium">우유</p></div>
           </label>
           <label class="flex items-center gap-4 rounded-xl border border-solid border-[#e3e1dd] p-[15px]">
             <input
               type="radio"
-              class="h-5 w-5 border-2 border-[#e3e1dd] bg-transparent text-transparent checked:border-[#161412] checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0 focus:ring-offset-0 checked:focus:border-[#161412]"
-              name="1701aa7d-42de-4fbb-852d-ab0c999ab02b"
+              class="h-5 w-5 border-2 border-[#e3e1dd] bg-transparent checked:border-[#161412] checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0"
+              name="catSelection"
               value="기타"
             />
-            <div class="flex grow flex-col"><p class="text-[#161412] text-sm font-medium leading-normal">기타</p></div>
+            <div class="flex grow flex-col"><p class="text-[#161412] text-sm font-medium">기타</p></div>
           </label>
         </div>
       </div>
@@ -95,7 +98,7 @@
           <a
             id="uploadButtonFinal"
             href="gallery.html"
-            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 flex-1 bg-[#e5ccb2] text-[#161412] text-base font-bold leading-normal tracking-[0.015em]"
+            class="flex min-w-[84px] max-w-[480px] items-center justify-center rounded-full h-12 px-5 flex-1 bg-[#e5ccb2] text-[#161412] text-base font-bold"
           >
             <span class="truncate">Upload</span>
           </a>
@@ -103,77 +106,79 @@
         <div class="h-5 bg-white"></div>
       </div>
     </div>
+
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', function () {
         const uploadButton = document.getElementById('uploadButtonFinal');
         const titleInput = document.getElementById('imageTitle');
-        // The 'Upload Photo' button for actual file input is not implemented, so we'll use a placeholder image.
-        const placeholderImageUrl = 'https://placekitten.com/400/300'; // Example placeholder
+        const selectFileButton = document.getElementById('selectFileButton');
+        const fileSelectedStatus = document.getElementById('fileSelectedStatus');
+        const placeholderImageUrl = 'https://placekitten.com/400/300';
+
+        if (selectFileButton && fileSelectedStatus) {
+          selectFileButton.addEventListener('click', function () {
+            fileSelectedStatus.textContent = 'Placeholder image (placekitten.com) will be used.';
+            selectFileButton.disabled = true;
+            selectFileButton.classList.add('opacity-50', 'cursor-not-allowed');
+          });
+        }
 
         if (uploadButton) {
-          uploadButton.addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default anchor navigation
+          uploadButton.addEventListener('click', function (event) {
+            event.preventDefault();
 
             const title = titleInput.value.trim();
-            const selectedCatRadio = document.querySelector('input[name="1701aa7d-42de-4fbb-852d-ab0c999ab02b"]:checked');
+            const selectedCatRadio = document.querySelector('input[name="catSelection"]:checked');
 
             if (!title) {
               alert('Please enter a title for the photo.');
               return;
             }
             if (!selectedCatRadio) {
-              alert('Please select a cat.'); // Should not happen if one is checked by default
+              alert('Please select a cat.');
               return;
             }
 
-            const catName = selectedCatRadio.value;
+            if (selectFileButton && fileSelectedStatus.textContent === '') {
+              fileSelectedStatus.textContent = 'Using default placeholder image (placekitten.com).';
+            }
 
-            // Generate filename: [catName]_[YYYYMMDDHHMM].jpg
+            const catName = selectedCatRadio.value;
             const now = new Date();
             const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+            const month = String(now.getMonth() + 1).padStart(2, '0');
             const day = String(now.getDate()).padStart(2, '0');
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const generatedFilename = `${catName}_${year}${month}${day}${hours}${minutes}.jpg`;
 
             const newImageMetadata = {
-              id: generatedFilename, // Using filename as a unique ID for simplicity
+              id: generatedFilename,
               title: title,
               catName: catName,
-              originalFilename: 'simulated_upload.jpg', // Placeholder for original name
-              path: `images/${generatedFilename}`, // Simulated path
-              displayUrl: placeholderImageUrl, // URL to display in gallery/detail
-              uploadTimestamp: now.toISOString()
+              originalFilename: 'simulated_upload.jpg',
+              path: `images/${generatedFilename}`,
+              displayUrl: placeholderImageUrl,
+              uploadTimestamp: now.toISOString(),
             };
 
-            // Fetch existing image_data.json, add new metadata, and "save" it
             fetch('image_data.json')
-              .then(response => {
-                if (!response.ok && response.status !== 404) { // Allow 404 if file doesn't exist yet (though we created it)
+              .then((response) => {
+                if (!response.ok && response.status !== 404) {
                   throw new Error('Failed to load image data file.');
                 }
-                return response.status === 404 ? { images: [] } : response.json(); // If 404, start with empty data
+                return response.status === 404 ? { images: [] } : response.json();
               })
-              .then(data => {
-                if (!data.images) { // Basic validation
-                  console.warn('image_data.json was not in expected format, re-initializing.');
+              .then((data) => {
+                if (!data.images) {
                   data.images = [];
                 }
-                data.images.unshift(newImageMetadata); // Add new image to the beginning of the array
+                data.images.unshift(newImageMetadata);
 
-                // The subtask environment will need to intercept 'data' here,
-                // stringify it, and overwrite 'image_data.json'.
-                // Then, the subtask environment will perform the redirect.
-                // This script has done its part by preparing 'data'.
-                // For now, log it to indicate it's ready for the "backend" part.
-                console.log("Subtask: image_data.json is ready to be updated with:", data);
-
-                // The actual redirect will be handled by the subtask environment
-                // after it processes the file update.
-                // Example: window.location.href = 'gallery.html';
+                console.log('Subtask: image_data.json is ready to be updated with:', data);
+                // 실제 저장 및 리디렉션은 환경에서 처리
               })
-              .catch(error => {
+              .catch((error) => {
                 console.error('Error during upload process:', error);
                 alert('Upload failed: ' + error.message);
               });
