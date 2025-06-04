@@ -43,15 +43,53 @@
 
             <a
               href="gallery.html"
+              id="loginButton"
               class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-[#e5ccb2] text-[#161412] text-base font-bold leading-normal tracking-[0.015em] w-full"
             >
               <span class="truncate">Log In</span>
             </a>
+            <div id="errorMessage" class="text-red-500 text-sm text-center mt-2"></div>
 
             <p class="text-center text-sm text-[#81766a]">
                 Go back to <a href="intro.html" class="font-medium text-[#e5ccb2] hover:text-[#d4bda1]">Intro Page</a>
             </p>
         </div>
     </div>
+    <script>
+      const usernameInput = document.getElementById('username');
+      const passwordInput = document.getElementById('password');
+      const loginButton = document.getElementById('loginButton');
+      const errorMessageDiv = document.getElementById('errorMessage');
+
+      loginButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+        errorMessageDiv.textContent = ''; // Clear previous errors
+
+        fetch('register.json')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Could not load user data.');
+            }
+            return response.json();
+          })
+          .then(data => {
+            const users = data.users;
+            const foundUser = users.find(user => user.id === username && user.pw === password);
+
+            if (foundUser) {
+              localStorage.setItem('loggedInUser', foundUser.id);
+              window.location.href = 'gallery.html';
+            } else {
+              errorMessageDiv.textContent = 'Invalid ID or password.';
+            }
+          })
+          .catch(error => {
+            console.error('Login error:', error);
+            errorMessageDiv.textContent = 'Login failed. Please try again later.';
+          });
+      });
+    </script>
 </body>
 </html>
