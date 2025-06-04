@@ -53,6 +53,7 @@
               <span class="truncate">Log In</span>
             </a>
             <a
+              id="guestLoginButton"
               href="gallery.html"
               class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-[#f4f2f1] text-[#161412] text-base font-bold leading-normal tracking-[0.015em] w-full"
             >
@@ -63,6 +64,18 @@
         <div class="h-5 bg-white"></div>
       </div>
     </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const guestLoginButton = document.getElementById('guestLoginButton');
+
+        if (guestLoginButton) {
+          guestLoginButton.addEventListener('click', function() {
+            localStorage.removeItem('loggedInUser');
+            // Navigation to gallery.html will proceed due to the href attribute
+          });
+        }
+      });
+    </script>
   </body>
 </html>
 

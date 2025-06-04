@@ -88,7 +88,7 @@
             <p class="text-[#81766a] text-[13px] font-bold leading-normal tracking-[0.015em]">123</p>
           </div>
         </div>
-        <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+        <div id="comment-input-section" class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
           <label class="flex flex-col min-w-40 flex-1">
             <input
               placeholder="Add a comment"
@@ -97,10 +97,11 @@
             />
           </label>
         </div>
-        <h3 class="text-[#161412] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Comments</h3>
-        <div class="flex w-full flex-row items-start justify-start gap-3 p-4">
-          <div
-            class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0"
+        <h3 id="comments-header" class="text-[#161412] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Comments</h3>
+        <div id="comments-list">
+          <div class="flex w-full flex-row items-start justify-start gap-3 p-4">
+            <div
+              class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0"
             style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAaXzBC1TaVJNYhhASf2QOyEXQeFHYOVjNCElWp7D3iEiExizebY7kT5VdLurUgc1zYKaTKJyoQJRV75Jbi3oOfBZkkElP_3G0Tpa7W5LZvTE4y7FyqJ1pgJFnI3pcJOKEPboVQvoQHeBlRgkawz9nCPZhjMU13A8bcCtRFQvdexj7q7xsTgWzwxJlh5lI-ItHCMiGE4HcozsVFqTE9d1PqTXsRQ2-jyx3L51d2bgenCjkvy6v0qhNZw1LQmuv9KXkIrDKkNEZS4txn");'
           ></div>
           <div class="flex h-full flex-1 flex-col items-start justify-start">
@@ -123,6 +124,7 @@
             </div>
             <p class="text-[#161412] text-sm font-normal leading-normal">I love cats!</p>
           </div>
+        </div>
         </div>
       </div>
       <div>
@@ -172,6 +174,30 @@
         <div class="h-5 bg-white"></div>
       </div>
     </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        const commentInputSection = document.getElementById('comment-input-section');
+        const commentsHeader = document.getElementById('comments-header');
+        const commentsList = document.getElementById('comments-list');
+
+        if (!loggedInUser) {
+          // User is a guest or not logged in
+          if (commentInputSection) {
+            commentInputSection.style.display = 'none';
+          }
+          if (commentsHeader) {
+            commentsHeader.style.display = 'none';
+          }
+          if (commentsList) {
+            commentsList.style.display = 'none';
+          }
+        } else {
+          // User is logged in, sections are visible by default.
+          // No explicit action needed to show them unless they were previously hidden.
+        }
+      });
+    </script>
   </body>
 </html>
 
