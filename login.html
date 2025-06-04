@@ -55,41 +55,74 @@
             </p>
         </div>
     </div>
-    <script>
-      const usernameInput = document.getElementById('username');
-      const passwordInput = document.getElementById('password');
-      const loginButton = document.getElementById('loginButton');
-      const errorMessageDiv = document.getElementById('errorMessage');
+<script>
+  const usernameInput = document.getElementById('username');
+  const passwordInput = document.getElementById('password');
+  const loginButton = document.getElementById('loginButton');
+  const errorMessageDiv = document.getElementById('errorMessage');
 
-      loginButton.addEventListener('click', function(event) {
-        event.preventDefault();
-        const username = usernameInput.value;
-        const password = passwordInput.value;
-        errorMessageDiv.textContent = ''; // Clear previous errors
+  loginButton.addEventListener('click', function(event) {
+    event.preventDefault();
+    const username = usernameInput.value;
+    const password = passwordInput.value;
+    errorMessageDiv.textContent = '';
 
-        fetch('register.json')
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Could not load user data.');
-            }
-            return response.json();
-          })
-          .then(data => {
-            const users = data.users;
-            const foundUser = users.find(user => user.id === username && user.pw === password);
+    console.log('Login attempt for username:', username);
 
-            if (foundUser) {
-              localStorage.setItem('loggedInUser', foundUser.id);
-              window.location.href = 'gallery.html';
-            } else {
-              errorMessageDiv.textContent = 'Invalid ID or password.';
-            }
-          })
-          .catch(error => {
-            console.error('Login error:', error);
-            errorMessageDiv.textContent = 'Login failed. Please try again later.';
+    fetch('register.json')
+      .then(response => {
+        console.log('Fetch response received:', response);
+        console.log('Response status:', response.status);
+        console.log('Response ok:', response.ok);
+        if (!response.ok) {
+          return response.text().then(text => {
+            console.error('Fetch error response text:', text);
+            throw new Error(`Network response was not ok: ${response.status} ${response.statusText}. Body: ${text}`);
           });
+        }
+        return response.clone().text().then(text => {
+            console.log('Raw response text:', text);
+            if (text.trim() === "") {
+                console.error('register.json is empty.');
+                throw new Error('User data file is empty.');
+            }
+            return JSON.parse(text); // Use JSON.parse directly on the logged text
+        });
+      })
+      .then(data => {
+        console.log('Parsed JSON data:', data);
+        if (!data || !Array.isArray(data.users) || data.users.length === 0) { // Check if users is an array and not empty
+            console.error('JSON data is not in the expected format (missing users array or users array is empty).');
+            throw new Error('Invalid data format or no users found in register.json.');
+        }
+        const users = data.users;
+        const foundUser = users.find(user => user.id === username && user.pw === password);
+
+        if (foundUser) {
+          console.log('User found:', foundUser);
+          localStorage.setItem('loggedInUser', foundUser.id);
+          window.location.href = 'gallery.html';
+        } else {
+          console.log('User not found or password mismatch.');
+          errorMessageDiv.textContent = 'Invalid ID or password.';
+        }
+      })
+      .catch(error => {
+        console.error('Login process error:', error);
+
+        if (error instanceof SyntaxError) {
+            errorMessageDiv.textContent = 'Error parsing user data. Please check the format of register.json.';
+        } else if (error.message.includes('Network response was not ok')) {
+            errorMessageDiv.textContent = `Error loading user data. Server said: ${error.message.split('Body: ')[1] || response.statusText || 'Server error'}`;
+        } else if (error.message.includes('User data file is empty')) {
+            errorMessageDiv.textContent = 'User data file (register.json) is empty.';
+        } else if (error.message.includes('Invalid data format or no users found')) {
+            errorMessageDiv.textContent = 'User data is not in the expected format or empty.';
+        } else {
+            errorMessageDiv.textContent = 'Login failed. An unexpected error occurred.'; // Changed generic message
+        }
       });
-    </script>
+  });
+</script>
 </body>
 </html>
