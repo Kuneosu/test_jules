@@ -42,53 +42,26 @@
             />
           </label>
         </div>
-        <div class="flex px-4 py-3 justify-center">
-          <button
-            id="selectFileButton"
-            class="flex min-w-[84px] max-w-[480px] items-center justify-center rounded-full h-10 px-4 bg-[#f4f2f1] text-[#161412] text-sm font-bold"
-          >
-            <span class="truncate">Select Photo File</span>
-          </button>
-        </div>
-        <div class="flex px-4 justify-center pb-3">
-          <span id="fileSelectedStatus" class="text-sm text-[#81766a]"></span>
+        <div class="flex flex-col items-center px-4 py-3 gap-4">
+          <label for="imageFile" class="block w-full text-sm font-medium text-[#161412] text-center">Select Image:</label>
+          <input type="file" id="imageFile" accept="image/*" class="block w-full max-w-md text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#e5ccb2] file:text-[#161412] hover:file:bg-[#d4bda1] cursor-pointer"/>
+          <img id="imagePreview" class="mt-2 w-full max-w-xs mx-auto hidden h-auto rounded-lg shadow-md" alt="Image Preview"/>
         </div>
         <div class="flex flex-col gap-3 p-4">
           <label class="flex items-center gap-4 rounded-xl border border-solid border-[#e3e1dd] p-[15px]">
-            <input
-              type="radio"
-              class="h-5 w-5 border-2 border-[#e3e1dd] bg-transparent checked:border-[#161412] checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0"
-              name="catSelection"
-              value="덕배"
-              checked
-            />
+            <input type="radio" class="h-5 w-5 border-2 border-[#e3e1dd] bg-transparent checked:border-[#161412] checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0" name="catSelection" value="덕배" checked />
             <div class="flex grow flex-col"><p class="text-[#161412] text-sm font-medium">덕배</p></div>
           </label>
           <label class="flex items-center gap-4 rounded-xl border border-solid border-[#e3e1dd] p-[15px]">
-            <input
-              type="radio"
-              class="h-5 w-5 border-2 border-[#e3e1dd] bg-transparent checked:border-[#161412] checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0"
-              name="catSelection"
-              value="초코"
-            />
+            <input type="radio" class="h-5 w-5 border-2 border-[#e3e1dd] bg-transparent checked:border-[#161412] checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0" name="catSelection" value="초코" />
             <div class="flex grow flex-col"><p class="text-[#161412] text-sm font-medium">초코</p></div>
           </label>
           <label class="flex items-center gap-4 rounded-xl border border-solid border-[#e3e1dd] p-[15px]">
-            <input
-              type="radio"
-              class="h-5 w-5 border-2 border-[#e3e1dd] bg-transparent checked:border-[#161412] checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0"
-              name="catSelection"
-              value="우유"
-            />
+            <input type="radio" class="h-5 w-5 border-2 border-[#e3e1dd] bg-transparent checked:border-[#161412] checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0" name="catSelection" value="우유" />
             <div class="flex grow flex-col"><p class="text-[#161412] text-sm font-medium">우유</p></div>
           </label>
           <label class="flex items-center gap-4 rounded-xl border border-solid border-[#e3e1dd] p-[15px]">
-            <input
-              type="radio"
-              class="h-5 w-5 border-2 border-[#e3e1dd] bg-transparent checked:border-[#161412] checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0"
-              name="catSelection"
-              value="기타"
-            />
+            <input type="radio" class="h-5 w-5 border-2 border-[#e3e1dd] bg-transparent checked:border-[#161412] checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0" name="catSelection" value="기타" />
             <div class="flex grow flex-col"><p class="text-[#161412] text-sm font-medium">기타</p></div>
           </label>
         </div>
@@ -106,25 +79,39 @@
         <div class="h-5 bg-white"></div>
       </div>
     </div>
-
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
+      document.addEventListener('DOMContentLoaded', function() {
         const uploadButton = document.getElementById('uploadButtonFinal');
         const titleInput = document.getElementById('imageTitle');
-        const selectFileButton = document.getElementById('selectFileButton');
-        const fileSelectedStatus = document.getElementById('fileSelectedStatus');
-        const placeholderImageUrl = 'https://placekitten.com/400/300';
+        const imageFileInput = document.getElementById('imageFile');
+        const imagePreview = document.getElementById('imagePreview');
 
-        if (selectFileButton && fileSelectedStatus) {
-          selectFileButton.addEventListener('click', function () {
-            fileSelectedStatus.textContent = 'Placeholder image (placekitten.com) will be used.';
-            selectFileButton.disabled = true;
-            selectFileButton.classList.add('opacity-50', 'cursor-not-allowed');
+        let selectedImageDataUrl = null;
+        let selectedImageFilename = null;
+
+        if (imageFileInput && imagePreview) {
+          imageFileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+              const reader = new FileReader();
+              reader.onload = function(e) {
+                selectedImageDataUrl = e.target.result;
+                selectedImageFilename = file.name;
+                imagePreview.src = selectedImageDataUrl;
+                imagePreview.classList.remove('hidden');
+              }
+              reader.readAsDataURL(file);
+            } else {
+              selectedImageDataUrl = null;
+              selectedImageFilename = null;
+              imagePreview.src = '';
+              imagePreview.classList.add('hidden');
+            }
           });
         }
 
         if (uploadButton) {
-          uploadButton.addEventListener('click', function (event) {
+          uploadButton.addEventListener('click', function(event) {
             event.preventDefault();
 
             const title = titleInput.value.trim();
@@ -138,9 +125,9 @@
               alert('Please select a cat.');
               return;
             }
-
-            if (selectFileButton && fileSelectedStatus.textContent === '') {
-              fileSelectedStatus.textContent = 'Using default placeholder image (placekitten.com).';
+            if (!selectedImageDataUrl || !selectedImageFilename) {
+              alert('Please select an image file to upload.');
+              return;
             }
 
             const catName = selectedCatRadio.value;
@@ -156,29 +143,25 @@
               id: generatedFilename,
               title: title,
               catName: catName,
-              originalFilename: 'simulated_upload.jpg',
+              originalFilename: selectedImageFilename,
               path: `images/${generatedFilename}`,
-              displayUrl: placeholderImageUrl,
-              uploadTimestamp: now.toISOString(),
+              displayUrl: selectedImageDataUrl,
+              uploadTimestamp: now.toISOString()
             };
 
             fetch('image_data.json')
-              .then((response) => {
+              .then(response => {
                 if (!response.ok && response.status !== 404) {
                   throw new Error('Failed to load image data file.');
                 }
                 return response.status === 404 ? { images: [] } : response.json();
               })
-              .then((data) => {
-                if (!data.images) {
-                  data.images = [];
-                }
+              .then(data => {
+                if (!data.images) data.images = [];
                 data.images.unshift(newImageMetadata);
-
-                console.log('Subtask: image_data.json is ready to be updated with:', data);
-                // 실제 저장 및 리디렉션은 환경에서 처리
+                console.log("Subtask: image_data.json is ready to be updated with:", data);
               })
-              .catch((error) => {
+              .catch(error => {
                 console.error('Error during upload process:', error);
                 alert('Upload failed: ' + error.message);
               });
