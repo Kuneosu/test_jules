@@ -8,7 +8,7 @@
       href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800"
     />
 
-    <title>Stitch Design</title>
+    <title>Stitch Design</title> <!-- This could also be dynamic based on image title -->
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -20,12 +20,14 @@
     >
       <div>
         <div class="flex items-center bg-white p-4 pb-2 justify-between">
-          <div class="text-[#161412] flex size-12 shrink-0 items-center" data-icon="ArrowLeft" data-size="24px" data-weight="regular">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-              <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
-            </svg>
-          </div>
-          <h2 class="text-[#161412] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Whiskers</h2>
+          <a href="gallery.html">
+            <div class="text-[#161412] flex size-12 shrink-0 items-center" data-icon="ArrowLeft" data-size="24px" data-weight="regular">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
+              </svg>
+            </div>
+          </a>
+          <h2 id="imageDetailTitle" class="text-[#161412] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Whiskers</h2>
           <div class="flex w-12 items-center justify-end">
             <button
               class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 bg-transparent text-[#161412] gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0"
@@ -41,6 +43,7 @@
         <div class="flex w-full grow bg-white @container py-3">
           <div class="w-full gap-1 overflow-hidden bg-white @[480px]:gap-2 aspect-[3/2] flex">
             <div
+              id="mainImageDisplay"
               class="w-full bg-center bg-no-repeat bg-cover aspect-auto rounded-none flex-1"
               style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDrPzOnbptq9a49_FCADeOPpNKRBrfBvgdoruclYHhI2zx0yuDzPNK_knZjfmIyUSrmtdrYdctCL9MNIOs3dk7nW2VslqAyRRmbtonGpgHt_MldbcdfZhPbTs9PE1tgvQGuzg9zEn96Ss9-gw_8yPw2T3_-NfHsNGjk_t9Oehf3BZV8-E7DavaUf8PxalyQWQyo4NEqarYN3Jv7aJAQKu1qGnKPNGFr8tGKlh-9W9tUVNDbn7v8ZscUKl_4tsZioYdNcWeKkefoTY77");'
             ></div>
@@ -86,7 +89,7 @@
             <p class="text-[#81766a] text-[13px] font-bold leading-normal tracking-[0.015em]">123</p>
           </div>
         </div>
-        <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+        <div id="comment-input-section" class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
           <label class="flex flex-col min-w-40 flex-1">
             <input
               placeholder="Add a comment"
@@ -95,10 +98,11 @@
             />
           </label>
         </div>
-        <h3 class="text-[#161412] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Comments</h3>
-        <div class="flex w-full flex-row items-start justify-start gap-3 p-4">
-          <div
-            class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0"
+        <h3 id="comments-header" class="text-[#161412] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Comments</h3>
+        <div id="comments-list">
+          <div class="flex w-full flex-row items-start justify-start gap-3 p-4">
+            <div
+              class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0"
             style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAaXzBC1TaVJNYhhASf2QOyEXQeFHYOVjNCElWp7D3iEiExizebY7kT5VdLurUgc1zYKaTKJyoQJRV75Jbi3oOfBZkkElP_3G0Tpa7W5LZvTE4y7FyqJ1pgJFnI3pcJOKEPboVQvoQHeBlRgkawz9nCPZhjMU13A8bcCtRFQvdexj7q7xsTgWzwxJlh5lI-ItHCMiGE4HcozsVFqTE9d1PqTXsRQ2-jyx3L51d2bgenCjkvy6v0qhNZw1LQmuv9KXkIrDKkNEZS4txn");'
           ></div>
           <div class="flex h-full flex-1 flex-col items-start justify-start">
@@ -122,10 +126,11 @@
             <p class="text-[#161412] text-sm font-normal leading-normal">I love cats!</p>
           </div>
         </div>
+        </div>
       </div>
       <div>
         <div class="flex gap-2 border-t border-[#f4f2f1] bg-white px-4 pb-3 pt-2">
-          <a class="just flex flex-1 flex-col items-center justify-end gap-1 rounded-full text-[#161412]" href="#">
+          <a class="just flex flex-1 flex-col items-center justify-end gap-1 rounded-full text-[#161412]" href="gallery.html">
             <div class="text-[#161412] flex h-8 items-center justify-center" data-icon="House" data-size="24px" data-weight="fill">
               <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
                 <path
@@ -141,7 +146,7 @@
               </svg>
             </div>
           </a>
-          <a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#81766a]" href="#">
+          <a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#81766a]" href="upload.html">
             <div class="text-[#81766a] flex h-8 items-center justify-center" data-icon="Plus" data-size="24px" data-weight="regular">
               <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
                 <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"></path>
@@ -170,6 +175,86 @@
         <div class="h-5 bg-white"></div>
       </div>
     </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // ---- Start of existing comment visibility logic ----
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        const commentInputSection = document.getElementById('comment-input-section');
+        const commentsHeader = document.getElementById('comments-header');
+        const commentsList = document.getElementById('comments-list');
+
+        if (!loggedInUser) {
+          if (commentInputSection) commentInputSection.style.display = 'none';
+          if (commentsHeader) commentsHeader.style.display = 'none';
+          if (commentsList) commentsList.style.display = 'none';
+        }
+        // ---- End of existing comment visibility logic ----
+
+        // ---- Start of new dynamic image detail logic ----
+        const imageDetailTitle = document.getElementById('imageDetailTitle');
+        const mainImageDisplay = document.getElementById('mainImageDisplay');
+        const defaultImageUrl = 'https://placekitten.com/600/400'; // A default if image not found
+
+        // Get image ID from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const imageId = urlParams.get('image');
+
+        if (!imageId) {
+          console.warn('No image ID found in URL.');
+          if (imageDetailTitle) imageDetailTitle.textContent = 'Image Not Found';
+          if (mainImageDisplay) mainImageDisplay.style.backgroundImage = `url('${defaultImageUrl}')`;
+          // Hide comment section as well if no image is loaded
+          if (commentInputSection) commentInputSection.style.display = 'none';
+          if (commentsHeader) commentsHeader.style.display = 'none';
+          if (commentsList) commentsList.style.display = 'none';
+          return;
+        }
+
+        fetch('/image_data.json') // Assuming image_data.json is at the root
+          .then(response => {
+            if (!response.ok) {
+              // Try to get more info for non-OK responses
+              return response.text().then(text => {
+                throw new Error(`Failed to load image_data.json: ${response.status} ${response.statusText}. Body: ${text}`);
+              });
+            }
+            return response.json();
+          })
+          .then(data => {
+            if (!data.images || !Array.isArray(data.images)) {
+              throw new Error('Invalid image data format from image_data.json.');
+            }
+
+            const image = data.images.find(img => img.id === imageId);
+
+            if (image) {
+              if (imageDetailTitle) imageDetailTitle.textContent = image.title || 'Untitled Detail';
+              if (mainImageDisplay) mainImageDisplay.style.backgroundImage = `url('${image.displayUrl || defaultImageUrl}')`;
+              // Update document title
+              document.title = image.title ? `${image.title} - Catstagram Detail` : 'Catstagram Detail';
+            } else {
+              console.warn(`Image with ID '${imageId}' not found.`);
+              if (imageDetailTitle) imageDetailTitle.textContent = 'Image Not Found';
+              if (mainImageDisplay) mainImageDisplay.style.backgroundImage = `url('${defaultImageUrl}')`;
+              document.title = 'Image Not Found - Catstagram';
+              // Hide comment section as well if image not found
+              if (commentInputSection) commentInputSection.style.display = 'none';
+              if (commentsHeader) commentsHeader.style.display = 'none';
+              if (commentsList) commentsList.style.display = 'none';
+            }
+          })
+          .catch(error => {
+            console.error('Error loading image details:', error);
+            if (imageDetailTitle) imageDetailTitle.textContent = 'Error Loading Image';
+            if (mainImageDisplay) mainImageDisplay.style.backgroundImage = `url('${defaultImageUrl}')`;
+            document.title = 'Error Loading Image - Catstagram';
+            // Hide comment section on error too
+            if (commentInputSection) commentInputSection.style.display = 'none';
+            if (commentsHeader) commentsHeader.style.display = 'none';
+            if (commentsList) commentsList.style.display = 'none';
+          });
+        // ---- End of new dynamic image detail logic ----
+      });
+    </script>
   </body>
 </html>
-
