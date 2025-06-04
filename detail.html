@@ -8,7 +8,7 @@
       href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800"
     />
 
-    <title>Stitch Design</title>
+    <title>Stitch Design</title> <!-- This could also be dynamic based on image title -->
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -27,7 +27,7 @@
               </svg>
             </div>
           </a>
-          <h2 class="text-[#161412] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Whiskers</h2>
+          <h2 id="imageDetailTitle" class="text-[#161412] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Whiskers</h2>
           <div class="flex w-12 items-center justify-end">
             <button
               class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 bg-transparent text-[#161412] gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0"
@@ -43,6 +43,7 @@
         <div class="flex w-full grow bg-white @container py-3">
           <div class="w-full gap-1 overflow-hidden bg-white @[480px]:gap-2 aspect-[3/2] flex">
             <div
+              id="mainImageDisplay"
               class="w-full bg-center bg-no-repeat bg-cover aspect-auto rounded-none flex-1"
               style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDrPzOnbptq9a49_FCADeOPpNKRBrfBvgdoruclYHhI2zx0yuDzPNK_knZjfmIyUSrmtdrYdctCL9MNIOs3dk7nW2VslqAyRRmbtonGpgHt_MldbcdfZhPbTs9PE1tgvQGuzg9zEn96Ss9-gw_8yPw2T3_-NfHsNGjk_t9Oehf3BZV8-E7DavaUf8PxalyQWQyo4NEqarYN3Jv7aJAQKu1qGnKPNGFr8tGKlh-9W9tUVNDbn7v8ZscUKl_4tsZioYdNcWeKkefoTY77");'
             ></div>
@@ -176,28 +177,84 @@
     </div>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
+        // ---- Start of existing comment visibility logic ----
         const loggedInUser = localStorage.getItem('loggedInUser');
         const commentInputSection = document.getElementById('comment-input-section');
         const commentsHeader = document.getElementById('comments-header');
         const commentsList = document.getElementById('comments-list');
 
         if (!loggedInUser) {
-          // User is a guest or not logged in
-          if (commentInputSection) {
-            commentInputSection.style.display = 'none';
-          }
-          if (commentsHeader) {
-            commentsHeader.style.display = 'none';
-          }
-          if (commentsList) {
-            commentsList.style.display = 'none';
-          }
-        } else {
-          // User is logged in, sections are visible by default.
-          // No explicit action needed to show them unless they were previously hidden.
+          if (commentInputSection) commentInputSection.style.display = 'none';
+          if (commentsHeader) commentsHeader.style.display = 'none';
+          if (commentsList) commentsList.style.display = 'none';
         }
+        // ---- End of existing comment visibility logic ----
+
+        // ---- Start of new dynamic image detail logic ----
+        const imageDetailTitle = document.getElementById('imageDetailTitle');
+        const mainImageDisplay = document.getElementById('mainImageDisplay');
+        const defaultImageUrl = 'https://placekitten.com/600/400'; // A default if image not found
+
+        // Get image ID from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const imageId = urlParams.get('image');
+
+        if (!imageId) {
+          console.warn('No image ID found in URL.');
+          if (imageDetailTitle) imageDetailTitle.textContent = 'Image Not Found';
+          if (mainImageDisplay) mainImageDisplay.style.backgroundImage = `url('${defaultImageUrl}')`;
+          // Hide comment section as well if no image is loaded
+          if (commentInputSection) commentInputSection.style.display = 'none';
+          if (commentsHeader) commentsHeader.style.display = 'none';
+          if (commentsList) commentsList.style.display = 'none';
+          return;
+        }
+
+        fetch('/image_data.json') // Assuming image_data.json is at the root
+          .then(response => {
+            if (!response.ok) {
+              // Try to get more info for non-OK responses
+              return response.text().then(text => {
+                throw new Error(`Failed to load image_data.json: ${response.status} ${response.statusText}. Body: ${text}`);
+              });
+            }
+            return response.json();
+          })
+          .then(data => {
+            if (!data.images || !Array.isArray(data.images)) {
+              throw new Error('Invalid image data format from image_data.json.');
+            }
+
+            const image = data.images.find(img => img.id === imageId);
+
+            if (image) {
+              if (imageDetailTitle) imageDetailTitle.textContent = image.title || 'Untitled Detail';
+              if (mainImageDisplay) mainImageDisplay.style.backgroundImage = `url('${image.displayUrl || defaultImageUrl}')`;
+              // Update document title
+              document.title = image.title ? `${image.title} - Catstagram Detail` : 'Catstagram Detail';
+            } else {
+              console.warn(`Image with ID '${imageId}' not found.`);
+              if (imageDetailTitle) imageDetailTitle.textContent = 'Image Not Found';
+              if (mainImageDisplay) mainImageDisplay.style.backgroundImage = `url('${defaultImageUrl}')`;
+              document.title = 'Image Not Found - Catstagram';
+              // Hide comment section as well if image not found
+              if (commentInputSection) commentInputSection.style.display = 'none';
+              if (commentsHeader) commentsHeader.style.display = 'none';
+              if (commentsList) commentsList.style.display = 'none';
+            }
+          })
+          .catch(error => {
+            console.error('Error loading image details:', error);
+            if (imageDetailTitle) imageDetailTitle.textContent = 'Error Loading Image';
+            if (mainImageDisplay) mainImageDisplay.style.backgroundImage = `url('${defaultImageUrl}')`;
+            document.title = 'Error Loading Image - Catstagram';
+            // Hide comment section on error too
+            if (commentInputSection) commentInputSection.style.display = 'none';
+            if (commentsHeader) commentsHeader.style.display = 'none';
+            if (commentsList) commentsList.style.display = 'none';
+          });
+        // ---- End of new dynamic image detail logic ----
       });
     </script>
   </body>
 </html>
-
