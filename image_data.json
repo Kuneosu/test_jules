@@ -1,3 +1,13 @@
 {
-  "images": []
+  "images": [
+    {
+      "id": "덕배_202310261030.jpg",
+      "title": "My Test Cat",
+      "catName": "덕배",
+      "originalFilename": "test_cat.jpg",
+      "path": "images/덕배_202310261030.jpg",
+      "displayUrl": "data:image/jpeg;base64,simulated_base64_string",
+      "uploadTimestamp": "2023-10-26T10:30:00.000Z"
+    }
+  ]
 }
